@@ -1,0 +1,48 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.css">
+
+<body class="container">
+<div class="text-center jumbotron"><h1>El blog de Lucho</h1></div>
+
+<h1 class="page-header"><a href="#">{{ entrada.titulo }}</a></h1>
+
+    <p class="lead text-justify text-muted"><strong>{{ entrada.descripcion }}</strong></p>
+    <p class="lead text-justify">{{ entrada.contenido }}</p>
+    <p class="text-right text-muted"><em>{{ entrada.fecha_pub }}</em></p>
+
+    {% for comentario in entrada.comentario_set.all %}
+        <blockquote>
+        <h3 class="h3-md"><strong>{{ comentario.autor }}</strong></h3>
+            <p class="lead text-justify">{{ comentario.comentario }}</p>
+            <small>{{ entrada.fecha_pub }}</small>
+        </blockquote>
+    {% endfor %}
+
+    <form role="form" action="{% url 'blog:comment' entrada.id %}" method="post">{% csrf_token %}
+
+    {% if mensaje %}
+    <div class="alert alert-dismissable alert-{{tipo_msj}}">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        <strong>{{ mensaje }}</strong>
+    </div>
+    {% endif %}
+
+    <h2>Envie un comentario:</h2>
+    
+    <div class="form-group">
+        <label>Nombre:</label>
+        <input class="form-control" type="text" tabindex="1" placeholder="Ingrese su nombre" name="autor" />
+        <span class="help-block">Si no ingresa su nombre, aparecerá como <em>- Anónimo -</em>.</span>
+    </div>
+
+    <div class="form-group">
+        <label>Comentario:</label>
+        <textarea class="form-control" type="text" rows="7" maxlength="400" tabindex="2" placeholder="Ingrese su comentario" name="comentario"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-primary btn-block" type="submit" tabindex="3" value="Enviar" />
+    </div>
+
+    </form>
+</body>

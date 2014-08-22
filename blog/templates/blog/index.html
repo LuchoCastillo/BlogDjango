@@ -1,0 +1,34 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.css">
+
+<body class="container">
+    <div class="text-center jumbotron">
+    <h1>El blog de Lucho</h1>
+    </div>
+    
+    <nav></nav>
+    
+    <section>
+    {% load url from future %}
+
+    {% if ultimas_entradas %}
+        
+        {% for entrada in ultimas_entradas %}
+            <article><h1 class="page-header"><a href="{% url 'blog:pub' entrada.id %}">{{ entrada.titulo }}</a></h1>
+                <p class="lead text-justify">{{ entrada.contenido }}</p></article>
+        {% endfor %}
+        
+    {% else %}
+        <p class="lead">No hay publicaciones.</p>
+    {% endif %}
+    </section>
+ 
+    <!-- Librería jQuery requerida por los plugins de JavaScript -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+ 
+    <!-- Todos los plugins JavaScript de Bootstrap (también puedes
+         incluir archivos JavaScript individuales de los únicos
+         plugins que utilices) -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
