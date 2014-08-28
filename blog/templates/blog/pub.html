@@ -1,9 +1,6 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.css">
+{% extends "base.html" %}
 
-<body class="container">
-<div class="text-center jumbotron"><h1>El blog de Lucho</h1></div>
-
+{% block contenido %}
 <h1 class="page-header"><a href="#">{{ entrada.titulo }}</a></h1>
 
     <p class="lead text-justify text-muted"><strong>{{ entrada.descripcion }}</strong></p>
@@ -45,4 +42,5 @@
     </div>
 
     </form>
-</body>
+{% endblock %}
+
