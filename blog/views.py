@@ -10,11 +10,11 @@ from blog.models import Entrada
 def index(request):
     ultimas_entradas = Entrada.objects.filter(fecha_pub__lte=timezone.now).order_by('-fecha_pub')[:5]
     context = {'ultimas_entradas': ultimas_entradas}
-    return render(request, 'blog/index.html', context, context_instance=RequestContext(request))
+    return render(request, 'index.html', context, context_instance=RequestContext(request))
 
 def pub(request, entrada_id):
     entrada = get_object_or_404(Entrada, pk=entrada_id)
-    return render(request, 'blog/pub.html', {'entrada': entrada}, context_instance=RequestContext(request))
+    return render(request, 'pub.html', {'entrada': entrada}, context_instance=RequestContext(request))
 
 def comment(request, entrada_id):
     autor = request.POST['autor']
@@ -36,5 +36,5 @@ def comment(request, entrada_id):
         entrada.comentario_set.create(comentario=comentario)
         mensaje = 'El comentario ha sido enviado correctamente.'
         tipo_msj = 'info'
-    return render(request, 'blog/pub.html', {'entrada': entrada, 'mensaje': mensaje, 'tipo_msj': tipo_msj}, context_instance=RequestContext(request))
+    return render(request, 'pub.html', {'entrada': entrada, 'mensaje': mensaje, 'tipo_msj': tipo_msj}, context_instance=RequestContext(request))
 
